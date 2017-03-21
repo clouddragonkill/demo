@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #canvas1 {
+            background: white;
+        }
+
+        body {
+            background: black;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    window.onload = function () {
+        var oCan = document.getElementById("canvas1");
+        var oGc = oCan.getContext("2d");
+        function toDraw() {
+            var x = 200;
+            var y = 200;
+            var r =100;
+           // oGc.clearRect(0,0,oCan.left,oCan.top);
+            var oDate = new Date();
+            var iHours = oDate.getHours();
+            var iMin = oDate.getMinutes();
+            var iSec = oDate.getSeconds();
+
+
+            oGc.beginPath();
+            for (var i = 0; i < 60; i++) {
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r, 6 * i * Math.PI / 180, 6 * (i + 1) * Math.PI / 180);
+            }
+            oGc.closePath();
+            oGc.stroke();
+            oGc.beginPath();
+            oGc.fillStyle = "white";
+            oGc.arc(x, y, r*19/20, 0, 360 * Math.PI / 180);
+            oGc.closePath();
+            oGc.fill();
+            oGc.beginPath();
+            for (var i = 0; i < 60; i++) {
+                oGc.moveTo(x, y);
+                oGc.arc(x, y, r, 30 * i * Math.PI / 180, 30 * (i + 1) * Math.PI / 180);
+            }
+            oGc.closePath();
+            oGc.stroke();
+            oGc.beginPath();
+            oGc.fillStyle = "white";
+            oGc.arc(x, y, r*18/20, 0, 360 * Math.PI / 180);
+            oGc.closePath();
+            oGc.fill();
+            //时针
+            oGc.beginPath();
+            oGc.lineWidth =3;
+            oGc.moveTo(x,y);
+            oGc.arc(x,y,r*14/20,(iHours*30-450)*Math.PI/180,(iHours*30-450)*Math.PI/180);
+            oGc.stroke();
+            //分针
+            oGc.beginPath();
+            oGc.lineWidth =2;
+            oGc.moveTo(x,y);
+            oGc.arc(x,y,r*18/20,(iMin*6-90)*Math.PI/180,(iMin*6-90)*Math.PI/180);
+            oGc.stroke();
+            //秒针
+            oGc.beginPath();
+            oGc.lineWidth =1;
+            oGc.moveTo(x,y);
+            oGc.arc(x,y,r*19/20,(iSec*6-90)*Math.PI/180,(iSec*6-90)*Math.PI/180);
+            oGc.stroke();
+        }
+
+
+setInterval(function () {
+    toDraw();
+},1000);
+        toDraw();
+
+    }
+</script>
+ <canvas id="canvas1" width="400px" height="400px">
+
+ </canvas>
+</body>
+</html>
